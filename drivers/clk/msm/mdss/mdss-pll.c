@@ -227,6 +227,8 @@ static int mdss_pll_probe(struct platform_device *pdev)
 	struct resource *dynamic_pll_base_reg;
 	struct resource *gdsc_base_reg;
 	struct mdss_pll_resources *pll_res;
+	char *buf = saved_command_line;
+	char *rf_panel_name = (char *)strnstr(buf, ":qcom,", strlen(buf));
 
 	if (!pdev->dev.of_node) {
 		pr_err("MDSS pll driver only supports device tree probe\n");
@@ -257,6 +259,12 @@ static int mdss_pll_probe(struct platform_device *pdev)
 
 	pll_res->ssc_en = of_property_read_bool(pdev->dev.of_node,
 						"qcom,dsi-pll-ssc-en");
+	rf_panel_name += strlen(":qcom,");
+	pr_info(" %s res=%d\n", rf_panel_name, strncmp(rf_panel_name, "mdss_dsi_ili9881d_hdplus_video_c3e", strlen("mdss_dsi_ili9881d_hdplus_video_c3e")));
+	if (!strncmp(rf_panel_name, "mdss_dsi_ili9881d_hdplus_video_c3e", strlen("mdss_dsi_ili9881d_hdplus_video_c3e"))) {
+		pr_err("mdss_dsi_ili9881d_hdplus_video_c3e mdss\n");
+		pll_res->ssc_en = false;
+	}
 
 	if (pll_res->ssc_en) {
 		pr_info("%s: label=%s PLL SSC enabled\n", __func__, label);
