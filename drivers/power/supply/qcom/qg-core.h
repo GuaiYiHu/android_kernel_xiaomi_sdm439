@@ -163,6 +163,8 @@ struct qpnp_qg {
 	struct cycle_counter	*counter;
 	/* ttf */
 	struct ttf		*ttf;
+	/* batt_id*/
+	int			batt_id;
 };
 
 struct ocv_all {
