@@ -365,7 +365,7 @@ static int qpnp_tri_led_register(struct qpnp_tri_led_chip *chip)
 		led = &chip->leds[i];
 		mutex_init(&led->lock);
 		led->cdev.name = led->label;
-		led->cdev.max_brightness = LED_FULL;
+		led->cdev.max_brightness = 45;
 		led->cdev.brightness_set_blocking = qpnp_tri_led_set_brightness;
 		led->cdev.brightness_get = qpnp_tri_led_get_brightness;
 		led->cdev.blink_set = qpnp_tri_led_set_blink;
