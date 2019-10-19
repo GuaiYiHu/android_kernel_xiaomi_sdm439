@@ -182,6 +182,7 @@ static inline bool is_gdsc_disabled(struct mdss_pll_resources *pll_res)
 	return ((readl_relaxed(pll_res->gdsc_base + 0x4) & BIT(31)) &&
 		(!(readl_relaxed(pll_res->gdsc_base) & BIT(0)))) ? false : true;
 }
+extern char *saved_command_line;
 
 int mdss_pll_resource_enable(struct mdss_pll_resources *pll_res, bool enable);
 int mdss_pll_util_resource_init(struct platform_device *pdev,
