@@ -46,6 +46,14 @@ enum backlight_notification {
 	BACKLIGHT_UNREGISTERED,
 };
 
+enum backlight_hbm_mode {
+	HBM_MODE_UN_SET,
+	HBM_MODE_DEFAULT = 1,
+	HBM_MODE_LEVEL1,
+	HBM_MODE_LEVEL2,
+	HBM_MODE_LEVEL_MAX
+};
+
 struct backlight_device;
 struct fb_info;
 
