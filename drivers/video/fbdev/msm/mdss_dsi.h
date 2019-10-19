@@ -99,6 +99,10 @@ enum dsi_panel_bl_ctrl {
 	BL_PWM,
 	BL_WLED,
 	BL_DCS_CMD,
+#ifdef CONFIG_LM3697_SUPPORT
+	BL_LM3697,
+	BL_KTD3136,
+#endif
 	UNKNOWN_CTRL,
 };
 
@@ -476,6 +480,24 @@ struct mdss_dsi_ctrl_pdata {
 	struct mdss_intf_recovery *recovery;
 	struct mdss_intf_recovery *mdp_callback;
 
+	struct dsi_panel_cmds CABC_UI_on_cmds;
+	struct dsi_panel_cmds CABC_STILL_on_cmds;
+	struct dsi_panel_cmds CABC_MOVIE_on_cmds;
+	struct dsi_panel_cmds CABC_off_cmds;
+	struct dsi_panel_cmds CE_on_cmds;
+	struct dsi_panel_cmds CE_off_cmds;
+	struct dsi_panel_cmds cold_gamma_cmds;
+	struct dsi_panel_cmds warm_gamma_cmds;
+	struct dsi_panel_cmds default_gamma_cmds;
+	struct dsi_panel_cmds PM1_cmds;
+	struct dsi_panel_cmds PM2_cmds;
+	struct dsi_panel_cmds PM3_cmds;
+	struct dsi_panel_cmds PM4_cmds;
+	struct dsi_panel_cmds PM5_cmds;
+	struct dsi_panel_cmds PM6_cmds;
+	struct dsi_panel_cmds PM7_cmds;
+	struct dsi_panel_cmds PM8_cmds;
+
 	struct dsi_panel_cmds on_cmds;
 	struct dsi_panel_cmds post_dms_on_cmds;
 	struct dsi_panel_cmds post_panel_on_cmds;
@@ -715,6 +737,9 @@ static inline const char *__mdss_dsi_pm_supply_node_name(
 	default:		return "???";
 	}
 }
+
+void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
+			struct dsi_panel_cmds *pcmds, u32 flags);
 
 static inline u32 mdss_dsi_get_hw_config(struct dsi_shared_data *sdata)
 {
